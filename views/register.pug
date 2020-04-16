@@ -1,6 +1,6 @@
 extends default
 block content
-        h2="Kirjaudu"
+        h2="Rekisteröidy"
 
         form(action='/login', method='post')
             .container
@@ -12,12 +12,10 @@ block content
                 b Salasana
                 input(type='password', placeholder='Anna salasana', name='psw', required='')
             .container
-                button(type='submit') Kirjaudu
+                button(type='submit') Rekisteröidy
                 label
-                input(type='checkbox', checked='checked', name='remember')
-                |  Pidä minut kirjautuneena
             .container(style='background-color:#f1f1f1')
                 button.cancelbtn(type='button') Peruuta
-                //- span.psw
+            //- span.psw
             
         a(href='#') Unohdin salasanan

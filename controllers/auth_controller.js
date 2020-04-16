@@ -1,10 +1,11 @@
+// https://medium.com/@nima.2004hkh/create-your-first-login-page-with-exprerssjs-pug-f42250229486
 
-
+//https://www.456bereastreet.com/archive/200711/use_the_label_element_to_make_your_html_forms_accessible/
 const user_model = require('../models/user-model');
-const auth_views = require('../views/auth-views');
+//const auth_views = require('../views/auth-views');
 
 // User handler
-const handle_user = (req, res, next) => {
+const handleUser = (req, res, next) => {
     if (!req.session.user) {
         return next();
     }
@@ -18,37 +19,47 @@ const handle_user = (req, res, next) => {
 };
 
 // 
-const get_login = (req, res, next) => {
-    console.log('user: ', req.session.user)
-    res.send(auth_views.login_view());
+const getLogin = (req, res, next) => {
+    res.render('login', {
+        title: 'Kirjaudu'
+    });
+};
+
+const getRegister = (req, res, next) => {
+    res.render('register', {
+        title: 'Rekisteröidy'
+    });
 };
 
 // Logout from shopping list
-const post_logout = (req, res, next) => {
+const postLogout = (req, res, next) => {
     req.session.destroy();
     res.redirect('/login');
 };
 
 // Try login
-const post_login = (req, res, next) => {
-    const user_name = req.body.user_name;
+const postLogin = (req, res, next) => {
+    console.log('post login 1');
+    const userName = req.body.user_name;
     user_model.findOne({
-        name: user_name
+        name: userName
     }).then((user) => {
         if (user) {
             req.session.user = user;
             return res.redirect('/');
         }
+        console.log('post login');
         res.redirect('/login');
+        
     });
 };
 
 // Try register new user
-const post_register = (req, res, next) => {
-    const user_name = req.body.user_name;
+const postRegister = (req, res, next) => {
+    const userName = req.body.user_name;
 
     user_model.findOne({
-        name: user_name
+        name: userName
     }).then((user) => {
         if (user) {
             console.log('User name already registered');
@@ -56,7 +67,7 @@ const post_register = (req, res, next) => {
         }
 
         let new_user = new user_model({
-            name: user_name,
+            name: userName,
             notes: []
         });
 
@@ -67,8 +78,9 @@ const post_register = (req, res, next) => {
     });
 };
 
-module.exports.handle_user = handle_user;
-module.exports.get_login = get_login;
-module.exports.post_logout = post_logout;
-module.exports.post_login = post_login;
-module.exports.post_register = post_register;
+module.exports.handleUser = handleUser;
+module.exports.getLogin = getLogin;
+module.exports.postLogout = postLogout;
+module.exports.postLogin = postLogin;
+module.exports.getRegister = getRegister;
+module.exports.postRegister = postRegister;

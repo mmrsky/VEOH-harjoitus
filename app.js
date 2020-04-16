@@ -8,12 +8,24 @@ const PORT = process.env.PORT || 8080;
 
 // Controllers
 const todoListController = require('./controllers/todolist_controller');
+const authController = require('./controllers/auth_controller');
 
 // Initialise express application
 let app = express();
 
 // Add Pug template engine in use
 app.set('view engine', 'pug');
+
+
+
+const isLoggedHandler = (req, res, next) => {
+    if (!req.session.user) {
+        return res.redirect('/login');
+    }
+    next();
+};
+
+
 
 // Set body parser in use
 app.use(bodyParser.urlencoded({
@@ -26,12 +38,14 @@ app.use((req, res, next) => {
 });
   
 //Serve Static files
-//app.use('/css', express.static('css'))
 app.use(express.static(__dirname + '/public'));
 
 // Shopping list main view
-app.get('/', todoListController.getLists)
- 
+app.get('/', todoListController.getLists);
+app.get('/login', authController.getLogin);
+app.post('/login', authController.postLogin);
+app.get('/register', authController.getRegister);
+app.post('/register', authController.postRegister);
 
 app.use((req, res, next) => {
     res.status(404);

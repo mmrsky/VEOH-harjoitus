@@ -8,8 +8,10 @@ html
     main
       block header
         header.header
-          h1 #{title}
+          a.navheader(href='/') Tehtävälista
           ul
-            a(href='/register') Rekisteröidy
-            a(href='/login') Kirjaudu
+            li
+                a(href='/register') Rekisteröidy
+            li                
+                a(href='/login') Kirjaudu
       block content
