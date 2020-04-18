@@ -51,8 +51,10 @@ const isLoggedHandler = (req, res, next) => {
 app.use(authController.handleUser);
 app.get('/login', authController.getLogin);
 app.post('/login', authController.postLogin);
+app.get('/logout', authController.postLogout);
 app.get('/register', authController.getRegister);
 app.post('/register', authController.postRegister);
+
 
 // Todos
 app.get('/', isLoggedHandler, todoListController.getTodos);

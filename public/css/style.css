@@ -9,7 +9,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 80px;
-    background-color: #525286;
+    background-color: #3abe50;
     color: #FFFFFF;
     margin-bottom: 50px;
   }
@@ -34,4 +34,9 @@ body {
   font-weight: bold;
   justify-content: center;
   align-items: center;
+}
+
+.container {
+  font-family: Arial, Helvetica, sans-serif;
+  justify-content: center;  
 }

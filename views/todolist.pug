@@ -1,5 +1,6 @@
 extends default
 block content
+
     h2=data.user_name
 
     form(action='/add-todo', method='post')
@@ -11,8 +12,12 @@ block content
     
     ul
         each todo in data.todos
-            li=todo.text
-            form(action='/delete-todo',method='post')
-                input(type='hidden' name='todo_id' value=todo.id)
-                button(type='submit' X)
+            .todoitemcontainer
+                li=todo.text
+            .todoitemcontainer                
+                form(action='/delete-todo',method='post')
+                    input(type='hidden' name='todo_id' value=todo.id)
+                    button(type='submit') X
 
+block login
+    a(href='/logout') Kirjaudu ulos

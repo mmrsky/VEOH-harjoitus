@@ -19,7 +19,6 @@ const handleUser = (req, res, next) => {
 
 // 
 const getLogin = (req, res, next) => {
-    console.log('user: ', req.session.user)
     res.render('login', {
         title: 'Kirjaudu'
     });
@@ -49,7 +48,6 @@ const postLogin = (req, res, next) => {
             console.log(user);
             return res.redirect('/');
         }
-        console.log('kissa2');
         res.redirect('/login');
     });
 };

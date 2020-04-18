@@ -50,7 +50,6 @@ const getTodo = (req, res, next) => {
 // Add new todo item
 const postTodo = (req, res, next) => {
     const user = req.user;
-    console.log(req.body.todoitem);
     let newTodo = todoModel({
         text: req.body.todoitem
     });
