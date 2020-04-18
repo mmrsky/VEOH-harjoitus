@@ -9,6 +9,6 @@ const todoitem_schema = new Schema({
         required: true
     }
 });
-const todoitem_model = new mongoose.model('note', todoitem_schema);
+const todoitemModel = new mongoose.model('todo', todoitem_schema);
 
-module.exports = todoitem_model;
+module.exports = todoitemModel;

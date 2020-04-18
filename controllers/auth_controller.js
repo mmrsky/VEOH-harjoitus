@@ -1,15 +1,14 @@
 // https://medium.com/@nima.2004hkh/create-your-first-login-page-with-exprerssjs-pug-f42250229486
 
 //https://www.456bereastreet.com/archive/200711/use_the_label_element_to_make_your_html_forms_accessible/
-const user_model = require('../models/user-model');
-//const auth_views = require('../views/auth-views');
+const userModel = require('../models/user-model');
 
 // User handler
 const handleUser = (req, res, next) => {
     if (!req.session.user) {
         return next();
     }
-    user_model.findById(req.session.user._id).then((user) => {
+    userModel.findById(req.session.user._id).then((user) => {
         req.user = user;
         next();
     }).catch((err) => {
@@ -20,6 +19,7 @@ const handleUser = (req, res, next) => {
 
 // 
 const getLogin = (req, res, next) => {
+    console.log('user: ', req.session.user)
     res.render('login', {
         title: 'Kirjaudu'
     });
@@ -39,39 +39,38 @@ const postLogout = (req, res, next) => {
 
 // Try login
 const postLogin = (req, res, next) => {
-    console.log('post login 1');
-    const userName = req.body.user_name;
-    user_model.findOne({
+    const userName = req.body.uname;
+    console.log(userName);
+    userModel.findOne({
         name: userName
     }).then((user) => {
         if (user) {
             req.session.user = user;
+            console.log(user);
             return res.redirect('/');
         }
-        console.log('post login');
+        console.log('kissa2');
         res.redirect('/login');
-        
     });
 };
 
 // Try register new user
 const postRegister = (req, res, next) => {
-    const userName = req.body.user_name;
-
-    user_model.findOne({
+    const userName = req.body.uname;
+    
+    userModel.findOne({
         name: userName
     }).then((user) => {
         if (user) {
             console.log('User name already registered');
             return res.redirect('/login');
         }
-
-        let new_user = new user_model({
+        let newUser = new userModel({
             name: userName,
             notes: []
         });
 
-        new_user.save().then(() => {
+        newUser.save().then(() => {
             return res.redirect('/login');
         });
 

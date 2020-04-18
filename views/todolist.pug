@@ -1,0 +1,18 @@
+extends default
+block content
+    h2=data.user_name
+
+    form(action='/add-todo', method='post')
+            .container
+                input(type='text', placeholder='Tehtävän nimi', name='todoitem', required='')
+            .container
+                button(type='submit') Lisää
+                label
+    
+    ul
+        each todo in data.todos
+            li=todo.text
+            form(action='/delete-todo',method='post')
+                input(type='hidden' name='todo_id' value=todo.id)
+                button(type='submit' X)
+

@@ -1,6 +1,8 @@
+//https://pugjs.org/language/interpolation.html
+
 // Todo-list application
 const express = require('express');
-//const session = require('express-session');
+const session = require('express-session');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const PORT = process.env.PORT || 8080;
@@ -16,20 +18,18 @@ let app = express();
 // Add Pug template engine in use
 app.set('view engine', 'pug');
 
-
-
-const isLoggedHandler = (req, res, next) => {
-    if (!req.session.user) {
-        return res.redirect('/login');
-    }
-    next();
-};
-
-
-
 // Set body parser in use
 app.use(bodyParser.urlencoded({
     extended: true
+}));
+
+app.use(session({
+    secret: 'ökljölkj',
+    resave: true,
+    saveUninitialized: true,
+    cookie: {
+        maxAge: 1000000
+    }
 }));
 
 app.use((req, res, next) => {
@@ -40,12 +40,26 @@ app.use((req, res, next) => {
 //Serve Static files
 app.use(express.static(__dirname + '/public'));
 
-// Shopping list main view
-app.get('/', todoListController.getLists);
+const isLoggedHandler = (req, res, next) => {
+    if (!req.session.user) {
+        return res.redirect('/login');
+    }
+    next();
+};
+
+// Authorization
+app.use(authController.handleUser);
 app.get('/login', authController.getLogin);
 app.post('/login', authController.postLogin);
 app.get('/register', authController.getRegister);
 app.post('/register', authController.postRegister);
+
+// Todos
+app.get('/', isLoggedHandler, todoListController.getTodos);
+app.post('/add-todo', isLoggedHandler, todoListController.postTodo);
+app.post('/delete-todo', isLoggedHandler, todoListController.postDeleteTodo);
+app.get('/todo/:id', isLoggedHandler, todoListController.getTodo);
+
 
 app.use((req, res, next) => {
     res.status(404);
