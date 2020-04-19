@@ -36,26 +36,26 @@ const postDeleteTodo = (req, res, next) => {
 };
 
 // Get todo item
-const getTodo = (req, res, next) => {
-    const todoId = req.params.id;
-    todoModel.findOne({
-        _id: todoId
-    }).then((todo) => {
-        let data = {
-            text: todo.text
-        };
-        res.render('todolist');
-    });
-};
+// const getTodo = (req, res, next) => {
+//     const todoId = req.params.id;
+//     todoModel.findOne({
+//         _id: todoId
+//     }).then((todo) => {
+//         let data = {
+//             text: todo.text
+//         };
+//         res.render('todolist');
+//     });
+// };
 
 // Add new todo item
+
 const postTodo = (req, res, next) => {
     const user = req.user;
     let newTodo = todoModel({
         text: req.body.todoitem
     });
     newTodo.save().then(() => {
-        console.log('todo saved');
         user.todos.push(newTodo);
         user.save().then(() => {
             return res.redirect('/');
@@ -64,7 +64,23 @@ const postTodo = (req, res, next) => {
 };
 
 
+const postToggleChecked = (req, res, next) => {
+    const todoId = req.body.todo_id;
+
+    console.log('tätäetitää '+todoId);
+    todoModel.findOne({
+        _id: todoId
+    }).then((todo) => {
+        todo.complete =! todo.complete;
+        todo.save().then(() => {
+            return res.redirect('/');
+        });
+    });
+};
+
+
 module.exports.getTodos = getTodos;
-module.exports.getTodo = getTodo;
+//module.exports.getTodo = getTodo;
 module.exports.postTodo = postTodo;
 module.exports.postDeleteTodo = postDeleteTodo;
+module.exports.postToggleChecked = postToggleChecked;

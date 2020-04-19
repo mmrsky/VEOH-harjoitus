@@ -63,8 +63,8 @@ app.post('/register', authController.postRegister);
 app.get('/', isLoggedHandler, todoListController.getTodos);
 app.post('/add-todo', isLoggedHandler, todoListController.postTodo);
 app.post('/delete-todo', isLoggedHandler, todoListController.postDeleteTodo);
-app.get('/todo/:id', isLoggedHandler, todoListController.getTodo);
-
+//app.get('/todo/:id', isLoggedHandler, todoListController.getTodo);
+app.post('/toggle-checked',isLoggedHandler, todoListController.postToggleChecked);
 
 app.use((req, res, next) => {
     res.status(404);

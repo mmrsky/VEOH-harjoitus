@@ -11,7 +11,11 @@ block content
     
     ul.todoList
         each todo in data.todos
+            //- li(class=todo.complete? 'checked':'')=todo.text
             li=todo.text
+                form(action='/toggle-checked',method='post')
+                    input(type='hidden' name='todo_id' value=todo.id)
+                    button.checkbutton(type='submit') x
                 form(action='/delete-todo',method='post')
                     input(type='hidden' name='todo_id' value=todo.id)
                     button.close(type='submit') Poista
