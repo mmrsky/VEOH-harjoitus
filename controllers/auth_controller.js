@@ -1,5 +1,4 @@
 // https://medium.com/@nima.2004hkh/create-your-first-login-page-with-exprerssjs-pug-f42250229486
-
 //https://www.456bereastreet.com/archive/200711/use_the_label_element_to_make_your_html_forms_accessible/
 const userModel = require('../models/user-model');
 
@@ -25,8 +24,10 @@ const getLogin = (req, res, next) => {
 };
 
 const getRegister = (req, res, next) => {
+    var taken = req.query.taken;
     res.render('register', {
-        title: 'Rekisteröidy'
+        title: 'Rekisteröidy',
+        usernametaken: taken
     });
 };
 
@@ -61,7 +62,7 @@ const postRegister = (req, res, next) => {
     }).then((user) => {
         if (user) {
             console.log('User name already registered');
-            return res.redirect('/login');
+            return res.redirect('/register?taken=1');
         }
         let newUser = new userModel({
             name: userName,

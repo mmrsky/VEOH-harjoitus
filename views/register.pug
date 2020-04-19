@@ -4,18 +4,17 @@ block content
 
         form(action='/register', method='post')
             .container
-                label(for='uname')
-                b Käyttäjätunnus
-                input(type='text', placeholder='Anna käyttäjätunnus', name='uname', required='')
-            .container    
-                label(for='psw')
-                b Salasana
-                input(type='password', placeholder='Anna salasana', name='psw', required='')
+                label(for='uname') Kirjoita haluamasi käyttäjätunnus:
             .container
+                input(type='text', placeholder='Anna käyttäjätunnus', name='uname', required='')
+                if usernametaken
+                    em käyttäjätunnus on varattu
+            .container    
+                label(for='psw') Kirjoita haluamasi salasana:
+            .container
+                input(type='password', placeholder='Anna salasana', name='psw', required='')
+            .container(style='background-color:#f1f1f1')
                 button(type='submit') Rekisteröidy
                 label
-            .container(style='background-color:#f1f1f1')
-                button.cancelbtn(type='button') Peruuta
-            //- span.psw
-block login            
-        //- a(href='#') Unohdin salasanan
+
+      

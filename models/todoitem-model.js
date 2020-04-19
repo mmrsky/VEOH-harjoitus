@@ -4,11 +4,13 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const todoitem_schema = new Schema({
+    complete: Boolean,
+    deadline: { type: Date, default: Date.now},
     text: {
         type: String,
         required: true
     }
 });
-const todoitemModel = new mongoose.model('todo', todoitem_schema);
 
+const todoitemModel = new mongoose.model('todo', todoitem_schema);
 module.exports = todoitemModel;

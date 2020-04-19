@@ -4,16 +4,15 @@ block content
 
         form(action='/login', method='post')
             .container
-                label(for='uname')
-                b Käyttäjätunnus
-                input(type='text', placeholder='Anna käyttäjätunnus', name='uname', required='')
+                label(for='uname') Anna käyttäjätunnus:
+            .container
+                input#uname(type='text', placeholder='Anna käyttäjätunnus', name='uname', required='')
             .container    
-                label(for='psw')
-                b Salasana
+                label(for='psw') Anna salasana:
+            .container
                 input(type='password', placeholder='Anna salasana', name='psw', required='')
             .container(style='background-color:#f1f1f1')
                 button(type='submit') Kirjaudu
                 label
 block login
-    a(href='/register') Rekisteröidy
-        //- a(href='#') Unohdin salasanan
+    a.login(href='/register') Rekisteröidy
