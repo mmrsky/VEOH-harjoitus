@@ -1,21 +1,20 @@
 extends default
 block content
 
-    h2=data.user_name
+    h2=data.user_name+'n tehtävälista'
 
     form(action='/add-todo', method='post')
-            .container
+            .todocontainer
                 input(type='text', placeholder='Tehtävän nimi', name='todoitem', required='')
                 button(type='submit') Lisää
                 label
     
     ul.todoList
         each todo in data.todos
-            //- li(class=todo.complete? 'checked':'')=todo.text
-            li=todo.text
+            li(class=todo.complete? 'checked':'')=todo.text
                 form(action='/toggle-checked',method='post')
                     input(type='hidden' name='todo_id' value=todo.id)
-                    button.checkbutton(type='submit') x
+                    button(type='submit',class=todo.complete? 'checkbuttoncheck':'checkbutton') X
                 form(action='/delete-todo',method='post')
                     input(type='hidden' name='todo_id' value=todo.id)
                     button.close(type='submit') Poista
@@ -23,5 +22,3 @@ block content
 block login
     a(href='/logout') Kirjaudu ulos
 
-
-//- https://html2jade.org/

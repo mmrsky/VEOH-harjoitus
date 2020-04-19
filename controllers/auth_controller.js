@@ -1,5 +1,4 @@
-// https://medium.com/@nima.2004hkh/create-your-first-login-page-with-exprerssjs-pug-f42250229486
-//https://www.456bereastreet.com/archive/200711/use_the_label_element_to_make_your_html_forms_accessible/
+
 const userModel = require('../models/user-model');
 
 // User handler
@@ -16,13 +15,14 @@ const handleUser = (req, res, next) => {
     });
 };
 
-// 
+// Get login page
 const getLogin = (req, res, next) => {
     res.render('login', {
         title: 'Kirjaudu'
     });
 };
 
+// Get register page
 const getRegister = (req, res, next) => {
     var taken = req.query.taken;
     res.render('register', {
@@ -31,7 +31,7 @@ const getRegister = (req, res, next) => {
     });
 };
 
-// Logout from shopping list
+// Logout from todo list
 const postLogout = (req, res, next) => {
     req.session.destroy();
     res.redirect('/login');

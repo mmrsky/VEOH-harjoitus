@@ -1,4 +1,6 @@
-//https://pugjs.org/language/interpolation.html
+// TODO application
+// 20.4.2020
+// Mika Mörsky OHSU19
 
 // Todo-list application
 const express = require('express');
@@ -7,13 +9,9 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const PORT = process.env.PORT || 8080;
 
-
 // Controllers
 const todoListController = require('./controllers/todolist_controller');
 const authController = require('./controllers/auth_controller');
-
-
-
 
 // Initialise express application
 let app = express();
@@ -63,7 +61,6 @@ app.post('/register', authController.postRegister);
 app.get('/', isLoggedHandler, todoListController.getTodos);
 app.post('/add-todo', isLoggedHandler, todoListController.postTodo);
 app.post('/delete-todo', isLoggedHandler, todoListController.postDeleteTodo);
-//app.get('/todo/:id', isLoggedHandler, todoListController.getTodo);
 app.post('/toggle-checked',isLoggedHandler, todoListController.postToggleChecked);
 
 app.use((req, res, next) => {

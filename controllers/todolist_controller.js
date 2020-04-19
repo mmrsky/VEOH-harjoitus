@@ -1,6 +1,5 @@
 const todoModel = require('../models/todoitem-model');
 
-
 // Get list of todo items
 const getTodos = (req, res, next) => {
     const user = req.user;
@@ -35,21 +34,7 @@ const postDeleteTodo = (req, res, next) => {
     });
 };
 
-// Get todo item
-// const getTodo = (req, res, next) => {
-//     const todoId = req.params.id;
-//     todoModel.findOne({
-//         _id: todoId
-//     }).then((todo) => {
-//         let data = {
-//             text: todo.text
-//         };
-//         res.render('todolist');
-//     });
-// };
-
 // Add new todo item
-
 const postTodo = (req, res, next) => {
     const user = req.user;
     let newTodo = todoModel({
@@ -63,11 +48,9 @@ const postTodo = (req, res, next) => {
     });
 };
 
-
+// Change completed state
 const postToggleChecked = (req, res, next) => {
     const todoId = req.body.todo_id;
-
-    console.log('tätäetitää '+todoId);
     todoModel.findOne({
         _id: todoId
     }).then((todo) => {
@@ -80,7 +63,6 @@ const postToggleChecked = (req, res, next) => {
 
 
 module.exports.getTodos = getTodos;
-//module.exports.getTodo = getTodo;
 module.exports.postTodo = postTodo;
 module.exports.postDeleteTodo = postDeleteTodo;
 module.exports.postToggleChecked = postToggleChecked;
